@@ -1,0 +1,26 @@
+<div>
+    <h1>Products</h1>
+    <input type="text" ng-model="searchTerm" placeholder="Search for products..." ng-change="searchProducts()" />
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Supplier</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="product in products">
+                <td>{{ product.name }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.supplier }}</td>
+                <td>
+                    <a href="#/products/edit/{{ product.id }}">Edit</a>
+                    <button ng-click="deleteProduct(product.id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="#/products/create">Create New Product</a>
+</div>

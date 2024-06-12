@@ -1,0 +1,22 @@
+<div>
+    <h1>Edit Product</h1>
+    <form ng-submit="updateProduct()">
+        <label>Name</label>
+        <input type="text" ng-model="product.name" required />
+        <label>Quantity</label>
+        <input type="number" ng-model="product.quantity" required />
+        <label>Supplier</label>
+        <input type="text" ng-model="product.supplier" />
+        <label>Size</label>
+        <input type="text" ng-model="product.size" />
+        <label>Weight</label>
+        <input type="text" ng-model="product.weight" />
+        <label>Color</label>
+        <input type="text" ng-model="product.color" />
+        <label>Brand</label>
+        <input type="text" ng-model="product.brand" />
+        <label>Category</label>
+        <input type="text" ng-model="product.category" />
+        <button type="submit">Update</button>
+    </form>
+</div>
