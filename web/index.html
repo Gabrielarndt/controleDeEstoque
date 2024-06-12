@@ -1,16 +1,36 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html lang="en">
 <head>
-    <title>Stock Management</title>
-    <script src="../node_modules/angular/angular.min.js"></script>
-    <script src="../node_modules/angular-route/angular-route.min.js"></script>
-    <script src="app.js"></script>
-    <script src="app/services/ProductService.js"></script>
-    <script src="app/controllers/ProductCreateController.js"></script>
-    <script src="app/controllers/ProductListController.js"></script>
-    <script src="app/controllers/ProductEditController.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="app/styles/styles.css">
 </head>
-<body>
-    <div ng-view></div>
+<body ng-app="app">
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class="bg-success text-white">
+            <div class="sidebar-header">
+                <h2>Controle</h2>
+            </div>
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="index.html#!/products">Produtos</a>
+                </li>
+                <li>
+                    <a href="index.html#!/products/create">Adicionar Produto</a>
+                </li>
+            </ul>
+        </div>
+        <!-- Page Content -->
+        <div id="content" class="p-4">
+            <div ng-view></div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>

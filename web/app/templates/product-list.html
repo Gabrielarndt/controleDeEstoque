@@ -1,7 +1,9 @@
-<div>
-    <h1>Products</h1>
-    <input type="text" ng-model="searchTerm" placeholder="Search for products..." ng-change="searchProducts()" />
-    <table>
+<div class="container">
+    <h1 class="mb-4">Products</h1>
+    <div class="form-group">
+        <input type="text" ng-model="searchTerm" placeholder="Search for products..." ng-change="searchProducts()" class="form-control" />
+    </div>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Name</th>
@@ -16,11 +18,10 @@
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.supplier }}</td>
                 <td>
-                    <a href="#/products/edit/{{ product.id }}">Edit</a>
-                    <button ng-click="deleteProduct(product.id)">Delete</button>
+                    <a href="index.html#!/products/edit/{{ product.id }}" class="btn btn-warning btn-sm">Edit</a>
+                    <button ng-click="deleteProduct(product.id)" class="btn btn-danger btn-sm">Delete</button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <a href="products/index.html#!/products/create">sdfdsf New Product</a>
 </div>

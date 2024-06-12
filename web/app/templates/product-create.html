@@ -1,22 +1,38 @@
-<div>
-    <h1>Create Product</h1>
+<div class="container">
+    <h1 class="mb-4">Create Product</h1>
     <form ng-submit="createProduct()">
-        <label>Name</label>
-        <input type="text" ng-model="product.name" required />
-        <label>Quantity</label>
-        <input type="number" ng-model="product.quantity" required />
-        <label>Supplier</label>
-        <input type="text" ng-model="product.supplier" />
-        <label>Size</label>
-        <input type="text" ng-model="product.size" />
-        <label>Weight</label>
-        <input type="text" ng-model="product.weight" />
-        <label>Color</label>
-        <input type="text" ng-model="product.color" />
-        <label>Brand</label>
-        <input type="text" ng-model="product.brand" />
-        <label>Category</label>
-        <input type="text" ng-model="product.category" />
-        <button type="submit">Create</button>
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" ng-model="product.name" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" ng-model="product.quantity" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>Supplier</label>
+            <input type="text" ng-model="product.supplier" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Size</label>
+            <input type="text" ng-model="product.size" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Weight</label>
+            <input type="text" ng-model="product.weight" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Color</label>
+            <input type="text" ng-model="product.color" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Brand</label>
+            <input type="text" ng-model="product.brand" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <input type="text" ng-model="product.category" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
