@@ -1,4 +1,5 @@
 angular.module('app', ['ngRoute'])
+    .constant('API_URL', 'http://localhost:8080/api/products')
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider
             .when('/products', {
