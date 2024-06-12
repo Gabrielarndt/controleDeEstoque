@@ -1,5 +1,6 @@
 angular.module('app').factory('ProductService', ['$http', function($http) {
-    var apiUrl = 'http://localhost:8080/api/products'; // Corrigir a porta aqui
+
+    var apiUrl = 'http://localhost:8080/api/products';
 
     return {
         getAll: function() {
