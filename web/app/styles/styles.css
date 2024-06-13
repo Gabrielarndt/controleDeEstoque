@@ -10,7 +10,6 @@ body {
     left: 0;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     padding: 20px;
 }
 
@@ -22,6 +21,7 @@ body {
 #sidebar ul.components {
     padding: 0;
     list-style: none;
+    margin-top: 20px; /* Adicionado para separar os links do título */
 }
 
 #sidebar ul li a {
@@ -29,10 +29,12 @@ body {
     text-decoration: none;
     font-size: 1.1em;
     display: block;
+    border-radius: 20px;
+    color: white;
 }
 
 #sidebar ul li a:hover {
-    background: #007bff;
+    background: #000000;
     color: #fff;
 }
 

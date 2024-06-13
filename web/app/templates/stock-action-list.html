@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="inventoryApp">
+<head>
+    <title>Stock Actions</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .restore-btn {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body ng-controller="StockActionController">
+    <div class="container">
+        <h1>Stock Actions</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Action Type</th>
+                    <th>Action Description</th>
+                    <th>Previous Quantity</th>
+                    <th>New Quantity</th>
+                    <th>Timestamp</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="action in stockActions">
+                    <td>{{ action.product.name }}</td>
+                    <td>{{ action.actionType }}</td>
+                    <td>{{ action.actionDescription }}</td>
+                    <td>{{ action.previousQuantity }}</td>
+                    <td>{{ action.newQuantity }}</td>
+                    <td>{{ action.timestamp }}</td>
+                    <td>
+                        <button class="btn btn-warning restore-btn" ng-click="restoreProduct(action.id)" ng-if="action.actionType === 'DELETE'">Restore</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</body>
+</html>
