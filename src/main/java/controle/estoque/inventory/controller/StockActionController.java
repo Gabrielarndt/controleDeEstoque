@@ -31,7 +31,7 @@ public class StockActionController {
         if (action.getActionType().equals("DELETE")) {
             Product product = action.getProduct();
             product.setQuantity(action.getPreviousQuantity());
-            productRepository.save(product);  // Correção aqui, chamando o método `save` em uma instância do repositório
+            productRepository.save(product);
             logStockAction(product, "RESTORE", "Product restored", 0, product.getQuantity());
         }
     }

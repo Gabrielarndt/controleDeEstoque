@@ -1,5 +1,4 @@
 angular.module('app').factory('ProductService', ['$http', function($http) {
-
     var apiUrl = 'http://localhost:8080/api/products';
 
     return {
@@ -17,6 +16,9 @@ angular.module('app').factory('ProductService', ['$http', function($http) {
         },
         delete: function(id) {
             return $http.delete(apiUrl + '/' + id);
+        },
+        restore: function(id) {
+            return $http.put(apiUrl + '/restore/' + id);
         },
         search: function(name) {
             return $http.get(apiUrl + '/search', { params: { name: name } });

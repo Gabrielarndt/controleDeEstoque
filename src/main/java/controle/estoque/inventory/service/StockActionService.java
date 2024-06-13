@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService {
+public class StockActionService {
 
     @Autowired
     private ProductRepository productRepository;
