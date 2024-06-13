@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,13 +21,20 @@ public class StockAction {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
     private String actionType;
     private String actionDescription;
     private LocalDateTime actionTime;
     private int previousQuantity;
     private int newQuantity;
+
+    @PrePersist
+    protected void onCreate() {
+        actionTime = LocalDateTime.now();
+    }
+
 
 	public Product getProduct() {
 		return this.product;
