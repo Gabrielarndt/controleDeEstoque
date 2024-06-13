@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stock-actions")
+@RequestMapping("/api")
 public class StockActionController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class StockActionController {
     @Autowired
     private ProductRepository productRepository;
 
-    @GetMapping
+    @GetMapping("/stock-actions")
     public List<StockAction> getAllStockActions() {
         return stockActionRepository.findAll();
     }
