@@ -18,6 +18,10 @@ app.config(function($routeProvider) {
         templateUrl: 'app/templates/stock-action-list.html',
         controller: 'StockActionController'
     })
+    .when('/products/delete/:id', {
+        templateUrl: 'app/templates/product-delete.html',
+        controller: 'ProductDeleteController'
+    })
     .otherwise({
         redirectTo: '/products'
     });
@@ -37,6 +41,7 @@ app.controller('StockActionController', function($scope, $http) {
             $scope.getStockActions();
         });
     };
+    
 
     $scope.getStockActions();
 });

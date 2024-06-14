@@ -1,9 +1,18 @@
 package controle.estoque.stockmanagement.controller;
 
+import controle.estoque.inventory.service.StockActionService.ProductNotFoundException;
 import controle.estoque.stockmanagement.model.Product;
+import controle.estoque.stockmanagement.repository.ProductRepository;
 import controle.estoque.stockmanagement.service.ProductService;
+
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.Random;
@@ -11,8 +20,13 @@ import java.util.Random;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping
     public List<Product> getAllProducts() {
@@ -32,25 +46,22 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public Product updateProduct(@PathVariable Long id, @RequestBody Product productDetails) {
-        Product product = productService.getProductById(id);
-        if (product != null) {
-            product.setName(productDetails.getName());
-            product.setQuantity(productDetails.getQuantity());
-            product.setSupplier(productDetails.getSupplier());
-            product.setSize(productDetails.getSize());
-            product.setWeight(productDetails.getWeight());
-            product.setColor(productDetails.getColor());
-            product.setBrand(productDetails.getBrand());
-            product.setCategory(productDetails.getCategory());
-            return productService.saveProduct(product);
-        }
-        return null;
+        return productService.saveProduct(productDetails);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id) {
-        productService.deleteProduct(id);
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        try {
+            productService.deleteProduct(id);
+            return ResponseEntity.noContent().build();
+        } catch (ProductNotFoundException ex) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception ex) {
+            logger.error("Failed to delete product with id: " + id, ex);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
+        
 
     @GetMapping("/search")
     public List<Product> searchProducts(@RequestParam String name) {
@@ -62,9 +73,9 @@ public class ProductController {
         String numbers = "0123456789";
         Random random = new Random();
         return "" + letters.charAt(random.nextInt(letters.length())) +
-                    numbers.charAt(random.nextInt(numbers.length())) +
-                    letters.charAt(random.nextInt(letters.length())) +
-                    letters.charAt(random.nextInt(letters.length())) +
-                    numbers.charAt(random.nextInt(numbers.length()));
+                numbers.charAt(random.nextInt(numbers.length())) +
+                letters.charAt(random.nextInt(letters.length())) +
+                letters.charAt(random.nextInt(letters.length())) +
+                numbers.charAt(random.nextInt(numbers.length()));
     }
 }

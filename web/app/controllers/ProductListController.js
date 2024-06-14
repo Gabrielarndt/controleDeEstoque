@@ -1,4 +1,4 @@
-angular.module('app').controller('ProductListController', ['$scope', 'ProductService', function($scope, ProductService) {
+angular.module('app').controller('ProductListController', ['$scope', 'ProductService', '$location', function($scope, ProductService, $location) {
     $scope.products = [];
 
     $scope.loadProducts = function() {
@@ -18,9 +18,7 @@ angular.module('app').controller('ProductListController', ['$scope', 'ProductSer
     };
 
     $scope.deleteProduct = function(id) {
-        ProductService.delete(id).then(function() {
-            $scope.loadProducts();
-        });
+        $location.path('/products/delete/' + id);
     };
 
     $scope.loadProducts();

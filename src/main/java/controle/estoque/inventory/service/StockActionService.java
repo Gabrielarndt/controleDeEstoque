@@ -2,10 +2,15 @@ package controle.estoque.inventory.service;
 
 import controle.estoque.inventory.model.StockAction;
 import controle.estoque.inventory.repository.StockActionRepository;
+import controle.estoque.stockmanagement.controller.ProductController;
 import controle.estoque.stockmanagement.model.Product;
 import controle.estoque.stockmanagement.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,13 +55,43 @@ public class StockActionService {
         return updatedProduct;
     }
 
-    public void deleteProduct(Long id) {
-        Product product = productRepository.findById(id).orElseThrow();
-        productRepository.delete(product);
-        logStockAction(product, "DELETE", "Product deleted", product.getQuantity(), 0);
+    private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
+
+    public class ProductNotFoundException extends RuntimeException {
+        public ProductNotFoundException(String message) {
+            super(message);
+        }
     }
 
-    private void logStockAction(Product product, String actionType, String actionDescription, int previousQuantity, int newQuantity) {
+    @Transactional
+    public void deleteProduct(Long id) {
+        try {
+            Product product = productRepository.findById(id)
+                    .orElseThrow(() -> new ProductNotFoundException("Product not found with id: " + id));
+
+            logStockAction(product, "DELETE", "Product deleted", product.getQuantity(), 0);
+
+            productRepository.delete(product);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ProductNotFoundException("Product not found with id: " + id);
+        } catch (Exception e) {
+            logger.error("Failed to delete product with id: " + id, e);
+            throw new RuntimeException("Failed to delete product due to internal server error");
+        }
+    }
+
+    public void restoreProduct(Long id) {
+        StockAction action = stockActionRepository.findById(id).orElseThrow();
+        if (action.getActionType().equals("DELETE")) {
+            Product product = action.getProduct();
+            product.setQuantity(action.getPreviousQuantity());
+            productRepository.save(product);
+            logStockAction(product, "RESTORE", "Product restored", 0, product.getQuantity());
+        }
+    }
+
+    public void logStockAction(Product product, String actionType, String actionDescription, int previousQuantity,
+            int newQuantity) {
         StockAction stockAction = new StockAction();
         stockAction.setProduct(product);
         stockAction.setActionType(actionType);
